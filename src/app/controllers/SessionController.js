@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import authConfig from '../../config/auth';
 
 class SessionController {
+  // TODO: Add try catch
   async store(request, response) {
     const schema = Yup.object().shape({
       username: Yup.string().required(),

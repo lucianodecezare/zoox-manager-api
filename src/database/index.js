@@ -12,10 +12,13 @@ class Database {
   }
 
   mongo() {
-    this.mongoConnection = mongoose.connect(process.env.DB_HOST, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    this.mongoConnection = mongoose
+      .connect(process.env.DB_HOST, {
+        useFindAndModify: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      .catch((error) => console.log(error));
   }
 }
 
