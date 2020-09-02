@@ -11,21 +11,23 @@ class SessionController {
       password: Yup.string().required(),
     });
 
-    if (!(await schema.isValid(request.body))) {
-      return response.status(400).json({ error: 'Validation error' });
+    try {
+      await schema.validate(request.body);
+
+      const { username, password } = request.body;
+
+      if (username !== 'admin' || password !== 'admin') {
+        return response.status(401).json({ error: 'User not found' });
+      }
+
+      return response.json({
+        token: jwt.sign({ id: 'admin' }, authConfig.SECRET, {
+          expiresIn: authConfig.EXPIRES_IN,
+        }),
+      });
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
     }
-
-    const { username, password } = request.body;
-
-    if (username !== 'admin' || password !== 'admin') {
-      return response.status(401).json({ error: 'User not found' });
-    }
-
-    return response.json({
-      token: jwt.sign({ id: 'admin' }, authConfig.SECRET, {
-        expiresIn: authConfig.EXPIRES_IN,
-      }),
-    });
   }
 }
 
