@@ -6,6 +6,7 @@
   "author": "Luciano de Cezare <lucianodecezare@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "sucrase ./src -d ./dist --transforms imports && node dist/server.js",
     "dev": "nodemon src/server.js",
     "dev:debug": "nodemon --inspect src/server.js"
   },
