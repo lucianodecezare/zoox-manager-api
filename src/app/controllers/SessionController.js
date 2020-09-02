@@ -3,8 +3,18 @@ import * as Yup from 'yup';
 
 import authConfig from '../../config/auth';
 
+/**
+ * Controls `Session`.
+ */
 class SessionController {
-  // TODO: Add try catch
+  /**
+   * Create a new `Session`.
+   *
+   * @param {Object}} request
+   * @param {Object}} response
+   *
+   * @returns {Object} { token: string }
+   */
   async store(request, response) {
     const schema = Yup.object().shape({
       username: Yup.string().required(),

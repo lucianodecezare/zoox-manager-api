@@ -11,6 +11,8 @@ class CitiesController {
    *
    * @param {Object} request
    * @param {Object} response
+   *
+   * @returns {Object} `City`
    */
   async store(request, response) {
     const schema = Yup.object().shape({
@@ -41,6 +43,9 @@ class CitiesController {
    *
    * @param {Object} request
    * @param {Object} response
+   *
+   * @returns {Object} Array of `City`
+   *
    */
   async index(request, response) {
     const { order, page, limit = 5 } = request.query;
@@ -62,6 +67,8 @@ class CitiesController {
    *
    * @param {Object}} request
    * @param {Object}} response
+   *
+   * @returns {Object} `City`
    */
   async get(request, response) {
     try {

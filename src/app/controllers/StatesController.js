@@ -11,6 +11,8 @@ class StatesController {
    *
    * @param {Object} request
    * @param {Object} response
+   *
+   * @returns {Object} `State`
    */
   async store(request, response) {
     const schema = Yup.object().shape({
@@ -41,6 +43,8 @@ class StatesController {
    *
    * @param {Object} request
    * @param {Object} response
+   *
+   * @returns {Object} Array of `State`
    */
   async index(request, response) {
     const { order, page, limit = 5 } = request.query;
@@ -62,6 +66,8 @@ class StatesController {
    *
    * @param {Object}} request
    * @param {Object}} response
+   *
+   * @returns {Object} `State`
    */
   async get(request, response) {
     try {
