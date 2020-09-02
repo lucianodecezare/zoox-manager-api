@@ -32,7 +32,7 @@ class StatesController {
 
       const state = await newState.save();
 
-      return response.json(state);
+      return response.status(201).json(state);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }
@@ -55,7 +55,7 @@ class StatesController {
         .skip(((+page <= 0 ? 1 : +page) - 1) * +limit)
         .limit(+limit);
 
-      return response.json(states);
+      return response.status(200).json(states);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }
@@ -73,7 +73,7 @@ class StatesController {
     try {
       const state = await State.findById(request.params.stateId);
 
-      return response.json(state);
+      return response.status(200).json(state);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }

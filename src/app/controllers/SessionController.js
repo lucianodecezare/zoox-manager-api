@@ -30,7 +30,7 @@ class SessionController {
         return response.status(401).json({ error: 'User not found' });
       }
 
-      return response.json({
+      return response.status(201).json({
         token: jwt.sign({ id: 'admin' }, authConfig.SECRET, {
           expiresIn: authConfig.EXPIRES_IN,
         }),

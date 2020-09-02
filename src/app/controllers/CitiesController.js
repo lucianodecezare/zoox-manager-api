@@ -32,7 +32,7 @@ class CitiesController {
 
       const city = await newCity.save();
 
-      return response.json(city);
+      return response.status(201).json(city);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }
@@ -56,7 +56,7 @@ class CitiesController {
         .skip(((+page <= 0 ? 1 : +page) - 1) * +limit)
         .limit(+limit);
 
-      return response.json(cities);
+      return response.status(200).json(cities);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }
@@ -74,7 +74,7 @@ class CitiesController {
     try {
       const city = await City.findById(request.params.cityId);
 
-      return response.json(city);
+      return response.status(200).json(city);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }
