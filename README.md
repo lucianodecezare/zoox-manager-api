@@ -1,4 +1,6 @@
-# test-zoox
+# Zoox Manager
+
+[OpenAPI specification](https://app.swaggerhub.com/apis/TheCezae/ZooxManager/1.0.0)
 
 A simple REST API for managing cities and states.
 
