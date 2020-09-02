@@ -17,16 +17,16 @@ class SessionController {
    */
   async store(request, response) {
     const schema = Yup.object().shape({
-      username: Yup.string().required(),
-      password: Yup.string().required(),
+      usuario: Yup.string().required(),
+      senha: Yup.string().required(),
     });
 
     try {
       await schema.validate(request.body);
 
-      const { username, password } = request.body;
+      const { usuario, senha } = request.body;
 
-      if (username !== 'admin' || password !== 'admin') {
+      if (usuario !== 'admin' || senha !== 'admin') {
         return response.status(401).json({ error: 'User not found' });
       }
 
