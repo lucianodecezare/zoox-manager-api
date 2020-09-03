@@ -59,7 +59,8 @@ class CitiesController {
       const cities = await City.find(whereClause)
         .sort({ [order]: newDescending })
         .skip(((+page <= 0 ? 1 : +page) - 1) * +limit)
-        .limit(+limit);
+        .limit(+limit)
+        .populate('estadoId', 'nome abreviacao');
       const count = await City.countDocuments(whereClause);
 
       return response.status(200).json({ cidades: cities, count });
@@ -78,7 +79,10 @@ class CitiesController {
    */
   async get(request, response) {
     try {
-      const city = await City.findById(request.params.cityId);
+      const city = await City.findById(request.params.cityId).populate(
+        'estadoId',
+        'nome abreviacao'
+      );
 
       return response.status(200).json(city);
     } catch (error) {
