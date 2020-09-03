@@ -47,15 +47,22 @@ class StatesController {
    * @returns {Object} Array of `State`
    */
   async index(request, response) {
-    const { order, page, limit = 5 } = request.query;
+    const { order, page, limit = 5, filter, descending } = request.query;
+
+    const newFilter = filter.includes('undefined') ? '' : filter;
+    const newDescending = descending === 'true' ? -1 : 1;
+    const whereClause = {
+      nome: { $regex: `.*${newFilter}.*`, $options: 'i' },
+    };
 
     try {
-      const states = await State.find()
-        .sort({ [order]: 1 })
+      const states = await State.find(whereClause)
+        .sort({ [order]: newDescending ? -1 : 1 })
         .skip(((+page <= 0 ? 1 : +page) - 1) * +limit)
         .limit(+limit);
+      const count = await State.countDocuments(whereClause);
 
-      return response.status(200).json(states);
+      return response.status(200).json({ estados: states, count });
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }

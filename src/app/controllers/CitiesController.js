@@ -48,15 +48,21 @@ class CitiesController {
    *
    */
   async index(request, response) {
-    const { order, page, limit = 5 } = request.query;
+    const { order, page, limit = 5, filter, descending } = request.query;
+    const newFilter = filter.includes('undefined') ? '' : filter;
+    const newDescending = descending === 'true' ? -1 : 1;
+    const whereClause = {
+      nome: { $regex: `.*${newFilter}.*`, $options: 'i' },
+    };
 
     try {
-      const cities = await City.find()
-        .sort({ [order]: 1 })
+      const cities = await City.find(whereClause)
+        .sort({ [order]: newDescending ? -1 : 1 })
         .skip(((+page <= 0 ? 1 : +page) - 1) * +limit)
         .limit(+limit);
+      const count = await City.countDocuments(whereClause);
 
-      return response.status(200).json(cities);
+      return response.status(200).json({ cidades: cities, count });
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }
