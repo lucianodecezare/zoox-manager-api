@@ -57,7 +57,7 @@ class StatesController {
 
     try {
       const states = await State.find(whereClause)
-        .sort({ [order]: newDescending ? -1 : 1 })
+        .sort({ [order]: newDescending })
         .skip(((+page <= 0 ? 1 : +page) - 1) * +limit)
         .limit(+limit);
       const count = await State.countDocuments(whereClause);
