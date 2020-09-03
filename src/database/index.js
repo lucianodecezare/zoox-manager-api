@@ -14,7 +14,7 @@ class Database {
   mongo() {
     this.mongoConnection = mongoose
       .connect(process.env.DB_HOST, {
-        useFindAndModify: true,
+        useFindAndModify: false,
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
